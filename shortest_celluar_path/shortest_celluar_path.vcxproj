@@ -154,7 +154,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\cpptimer\cpptimer.cpp" />
     <ClCompile Include="shortest_celluar_path.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\cpptimer\cpptimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
