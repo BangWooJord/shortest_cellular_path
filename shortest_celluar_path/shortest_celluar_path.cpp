@@ -34,6 +34,12 @@ static void mouseHandler(int event, int x, int y, int flags, void* param) {
 	else if (event == cv::EVENT_RBUTTONDOWN) {
 		map->at<uchar>(y, x) = 255;
 	}
+	else if (event == cv::EVENT_MOUSEWHEEL && flags > 0) {
+		cv::resize((*map), (*map), cv::Size(), 1.1, 1.1, 0);
+	}
+	else if (event == cv::EVENT_MOUSEWHEEL && flags <= 0) {
+		cv::resize((*map), (*map), cv::Size(), 0.9, 0.9, 0);
+	}
 }
 
 int main()
@@ -44,13 +50,15 @@ int main()
 
 	std::string window_name = "Window";
 	cv::namedWindow(window_name);
-	//cv::imshow(window_name, main_map);
 
 	cv::setMouseCallback(window_name, mouseHandler, &main_map);
 
 	std::thread ([&]() {
 		while (true) {
-			cv::imshow(window_name, main_map);
+			try {
+				cv::imshow(window_name, main_map);
+			}
+			catch (cv::Exception e){}
 		}
 		}).detach();
 	cv::waitKey();
